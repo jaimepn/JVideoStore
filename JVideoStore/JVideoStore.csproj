@@ -219,6 +219,18 @@
     <Compile Include="Migrations\201806092047019_MoviesExtraColumns.Designer.cs">
       <DependentUpon>201806092047019_MoviesExtraColumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806231448048_MovieDataAnnotations.cs" />
+    <Compile Include="Migrations\201806231448048_MovieDataAnnotations.Designer.cs">
+      <DependentUpon>201806231448048_MovieDataAnnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806241807110_AnnotationsAddedForMovies.cs" />
+    <Compile Include="Migrations\201806241807110_AnnotationsAddedForMovies.Designer.cs">
+      <DependentUpon>201806241807110_AnnotationsAddedForMovies.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806241823153_GenreIDNowInt.cs" />
+    <Compile Include="Migrations\201806241823153_GenreIDNowInt.Designer.cs">
+      <DependentUpon>201806241823153_GenreIDNowInt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ApplicationUser.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\MyContext.cs" />
@@ -380,6 +392,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806092047019_MoviesExtraColumns.resx">
       <DependentUpon>201806092047019_MoviesExtraColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806231448048_MovieDataAnnotations.resx">
+      <DependentUpon>201806231448048_MovieDataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806241807110_AnnotationsAddedForMovies.resx">
+      <DependentUpon>201806241807110_AnnotationsAddedForMovies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806241823153_GenreIDNowInt.resx">
+      <DependentUpon>201806241823153_GenreIDNowInt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
