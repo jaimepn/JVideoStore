@@ -1,4 +1,6 @@
-﻿using JVideoStore.Migrations;
+﻿using AutoMapper;
+using JVideoStore.Dtos;
+using JVideoStore.Migrations;
 using JVideoStore.Models;
 using System;
 using System.Collections.Generic;
@@ -20,38 +22,43 @@ namespace JVideoStore.Controllers.Api
         }
 
         //GET Api/Customers
-        public IEnumerable<Customer> GetCustomers()
+        public IEnumerable<CustomerDto> GetCustomers()
         {
-            return _context.Customers.ToList();
+            return _context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>);
         }
 
         //GET Api/Customers/1
-        public Customer GetCustomer(int id)
+        public CustomerDto GetCustomer(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return customer;
+            var customerdto = Mapper.Map<Customer, CustomerDto>(customer);
+            return customerdto;
         }
 
         //POST Api/Customers
         [HttpPost]
-        public Customer CreateCustomer(Customer customer)
+        public CustomerDto CreateCustomer(CustomerDto customerdto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
+            var customer = Mapper.Map<CustomerDto, Customer>(customerdto);
+
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
-            return customer;
+            customerdto.Id = customer.Id;
+
+            return customerdto;
         }
 
         //PUT Api/Customers/1
         [HttpPut]
-        public void UpdateCustomer(int id, Customer customer)
+        public void UpdateCustomer(int id, CustomerDto customerdto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -61,10 +68,12 @@ namespace JVideoStore.Controllers.Api
             if (customerDB == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            customerDB.Name = customer.Name;
-            customerDB.MembershipTypeId = customer.MembershipTypeId;
-            customerDB.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
-            customerDB.BirthDate = customer.BirthDate;
+            Mapper.Map(customerdto, customerDB);
+
+            //customerDB.Name = customer.Name;
+            //customerDB.MembershipTypeId = customer.MembershipTypeId;
+            //customerDB.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+            //customerDB.BirthDate = customer.BirthDate;
 
             _context.SaveChanges();
         }
