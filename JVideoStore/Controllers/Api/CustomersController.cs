@@ -28,23 +28,26 @@ namespace JVideoStore.Controllers.Api
         }
 
         //GET Api/Customers/1
-        public CustomerDto GetCustomer(int id)
+        public IHttpActionResult GetCustomer(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (customer == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                //throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
             var customerdto = Mapper.Map<Customer, CustomerDto>(customer);
-            return customerdto;
+            //return customerdto;
+            return Ok(customerdto);
         }
 
         //POST Api/Customers
         [HttpPost]
-        public CustomerDto CreateCustomer(CustomerDto customerdto)
+        public IHttpActionResult CreateCustomer(CustomerDto customerdto)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                //throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest();
 
             var customer = Mapper.Map<CustomerDto, Customer>(customerdto);
 
@@ -53,7 +56,8 @@ namespace JVideoStore.Controllers.Api
 
             customerdto.Id = customer.Id;
 
-            return customerdto;
+            //return customerdto;
+            return Created(new Uri(Request.RequestUri + "/" + customer.Id), customerdto);
         }
 
         //PUT Api/Customers/1
