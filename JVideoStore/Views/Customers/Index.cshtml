@@ -30,23 +30,34 @@
 </table>
 
 
+<style>
+    .modal-backdrop.fade.in {
+        z-index: 0;
+    }
+</style>
+
+
 @section scripts
 {
+
+
     <script>
-        $(document).ready(function () {
-            $("#customers .js-delete").on("click", function () {
+        $(document).ready(function () { 
+        $(document).on("click", "#customers .js-delete", function (e) {
                 var button = $(this);
-                if (confirm("Are you sure you want to delete this customer?")) {
-                    $.ajax({
-                        url: "/api/customers/" + button.attr("data-customer-id"),
-                        method: "DELETE",
-                        success: function () {
-                            //console.log("Success!");
-                            button.parents("tr").remove();
-                        }
-                    })
-                }
+                bootbox.confirm("Are you sure?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/Api/Customers/" + button.attr("data-customer-id"),
+                            method: "DELETE",
+                            success: function () {
+                                button.parents("tr").remove();
+                            }
+                        })
+                    }
+                })
             });
+            //alert("test")
         });
     </script>
 }
