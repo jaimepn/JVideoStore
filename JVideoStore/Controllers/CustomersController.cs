@@ -41,10 +41,11 @@ namespace JVideoStore.Controllers
 
         public ViewResult Index()
         {
-            //var customers = GetCustomers();
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+            //COMMENTED OUT AS THE VIEW NOW USES API CALLS TO RETRIEVE DATA
+            //var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+            //return View(customers);
 
-            return View(customers);
+            return View();
         }
 
 
