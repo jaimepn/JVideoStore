@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Data.Entity;
 
 namespace JVideoStore.Controllers.Api
 {
@@ -22,9 +23,21 @@ namespace JVideoStore.Controllers.Api
         }
 
         //GET Api/Customers
-        public IEnumerable<CustomerDto> GetCustomers()
+        public IHttpActionResult GetCustomers()
         {
-            return _context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>);
+            var customerDtos = _context.Customers
+                //.Include(c => c.MembershipType)
+                .ToList()
+                .Select(Mapper.Map<Customer, CustomerDto>);
+
+            foreach (CustomerDto cdto in customerDtos)
+            {
+                var mtype = _context.MembershipTypes.SingleOrDefault(m => m.Id == cdto.MembershipTypeId);
+                var mtypeDto = Mapper.Map<MembershipType, MembershipTypeDto>(mtype);
+                cdto.MembershipType = mtypeDto;
+            }
+
+            return Ok(customerDtos);
         }
 
         //GET Api/Customers/1
