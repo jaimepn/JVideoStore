@@ -13,6 +13,7 @@ namespace JVideoStore.App_Start
         public MappingProfile()
         {
             Mapper.CreateMap<MembershipType, MembershipTypeDto>();
+            Mapper.CreateMap<Genre, GenreDto>();
             Mapper.CreateMap<Customer, CustomerDto>();
             Mapper.CreateMap<CustomerDto, Customer>();            
         }

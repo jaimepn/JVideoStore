@@ -3,6 +3,7 @@ using JVideoStore.Migrations;
 using JVideoStore.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,10 +22,34 @@ namespace JVideoStore.Controllers.Api
         }
 
         //GET
-        public IEnumerable<Movie> GetMovies()
+        public IHttpActionResult GetMovies()
         {
-            return _context.Movies.ToList();
+            var movies = _context.Movies.Include(g => g.Genre).ToList();
+            var moviesDto = new List<MovieDto>();
+
+            foreach (Movie movie in movies)
+            {
+                var genredto = new GenreDto
+                {
+                    Id = movie.Genre.Id,
+                    Name = movie.Genre.Name
+                };
+
+                MovieDto moviedto = new MovieDto
+                {
+                    Id = movie.Id,
+                    Name = movie.Name,
+                    Genre = genredto,
+                    GenreId = movie.GenreId,
+                    NumberInStock = movie.NumberInStock,
+                    ReleaseDate = movie.ReleaseDate
+                };
+
+                moviesDto.Add(moviedto);
+            }
+            return Ok(moviesDto);
         }
+
 
         //GET
         public MovieDto GetMovie(int id)
