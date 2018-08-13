@@ -214,7 +214,7 @@
                 }
             });
 
-            $.extend(rules, { "__dummy__": true });
+            $.extend(rules, { "__JVideoStore__": true });
 
             if (!skipAttach) {
                 valInfo.attachValidation();
@@ -332,7 +332,7 @@
         });
     };
 
-    $jQval.addMethod("__dummy__", function (value, element, params) {
+    $jQval.addMethod("__JVideoStore__", function (value, element, params) {
         return true;
     });
 

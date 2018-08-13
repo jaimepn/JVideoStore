@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JVideoStore", "JVideoStore\JVideoStore.csproj", "{2F998DBB-7BBD-4410-ADB8-48803271F3C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JVideoStoreTests", "JVideoStoreTests\JVideoStoreTests.csproj", "{CA06B4EF-0C6D-4B54-8750-EAFA12DA15E4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{2F998DBB-7BBD-4410-ADB8-48803271F3C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F998DBB-7BBD-4410-ADB8-48803271F3C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F998DBB-7BBD-4410-ADB8-48803271F3C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA06B4EF-0C6D-4B54-8750-EAFA12DA15E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA06B4EF-0C6D-4B54-8750-EAFA12DA15E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA06B4EF-0C6D-4B54-8750-EAFA12DA15E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA06B4EF-0C6D-4B54-8750-EAFA12DA15E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
