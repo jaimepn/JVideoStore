@@ -10,6 +10,7 @@ using JVideoStore.Migrations;
 
 namespace JVideoStore.Controllers
 {
+    [Authorize]
     public class CustomersController : Controller
     {
 

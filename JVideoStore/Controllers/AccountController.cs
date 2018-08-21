@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using JVideoStore.Models;
+using JVideoStore.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
+using JVideoStore.Migrations;
 
 namespace JVideoStore.Controllers
 {
@@ -151,10 +154,16 @@ namespace JVideoStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new Models.ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    ////temp code
+                    //var roleStore = new RoleStore<IdentityRole>(new MyContext());
+                    //var roleManager = new RoleManager<IdentityRole>(roleStore);
+                    //var xxx = await roleManager.CreateAsync(new IdentityRole("canManageMovies"));
+                    //await UserManager.AddToRoleAsync(user.Id, "canManageMovies");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -183,6 +192,15 @@ namespace JVideoStore.Controllers
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
+        }
+
+
+
+        public ActionResult ResetUserPassword(string userId, string UserName)
+        {
+            ViewBag.Username = UserName.ToString();
+            ViewBag.UserId = userId.Trim().ToString();
+            return View();
         }
 
         //
@@ -367,7 +385,7 @@ namespace JVideoStore.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new Models.ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
