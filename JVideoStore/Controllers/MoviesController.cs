@@ -37,8 +37,11 @@ namespace JVideoStore.Controllers
 
         public ViewResult Index()
         {
-            var movies = _context.Movies.Include(m => m.Genre).ToList();
-            return View(movies);
+            //var movies = _context.Movies.Include(m => m.Genre).ToList();
+            if (User.IsInRole("canManageMovies"))                
+                return View("List");
+            else
+                return View("ReadOnlyList");
         }
 
 
@@ -50,7 +53,7 @@ namespace JVideoStore.Controllers
         }
 
   
-
+        [Authorize(Roles = "canManageMovies")]
         public ActionResult New()
         {
             var model = new MovieFormViewModel

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<JVideoStore.Models.Movie>
+
+@{
+    ViewBag.Title = "Movies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movies</h2>
+
+
+<table id="tblMovies" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Movie</th>
+            <th>Genre</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @*@foreach (var movie in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(movie.Name, "Edit", "Movies", new { id = movie.Id }, null)</td>
+                <td>@movie.Genre.Name</td>
+            </tr>
+        }*@
+        @******COMMENTED OUT AS POPULATING THE TABLE IS DONE VIA AJAX******@
+    </tbody>
+</table>
+
+
+<style>
+    /*this is stop fix bootbox*/
+    .modal-backdrop.fade.in {
+        z-index: 0;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(
+            function () {
+                //alert("so far so good");
+                var table = $("#tblMovies").DataTable({
+                    ajax: {
+                        url: "/api/movies",
+                        dataSrc: ""
+                    },
+                    columns: [
+                        {
+                            data: "name"                            
+                        },
+                        {
+                            data: "genre.name"
+                        }
+                    ]
+                });               
+
+            }
+        )
+
+    </script>
+}
