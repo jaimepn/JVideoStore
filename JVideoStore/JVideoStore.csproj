@@ -428,7 +428,6 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -505,6 +504,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\CustomersController.cs" />
     <Compile Include="Controllers\Api\MoviesController.cs" />
+    <Compile Include="Controllers\Api\NewRentalsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -513,6 +513,7 @@
     <Compile Include="Dtos\GenreDto.cs" />
     <Compile Include="Dtos\MembershipTypeDto.cs" />
     <Compile Include="Dtos\MovieDto.cs" />
+    <Compile Include="Dtos\NewRentalDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -584,6 +585,14 @@
     <Compile Include="Migrations\201808211826185_SeedUsers.Designer.cs">
       <DependentUpon>201808211826185_SeedUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809021654431_PhoneNumberToApplicationUser.cs" />
+    <Compile Include="Migrations\201809021654431_PhoneNumberToApplicationUser.Designer.cs">
+      <DependentUpon>201809021654431_PhoneNumberToApplicationUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809121755389_RentalsAdded.cs" />
+    <Compile Include="Migrations\201809121755389_RentalsAdded.Designer.cs">
+      <DependentUpon>201809121755389_RentalsAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ApplicationUser.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\MyContext.cs" />
@@ -595,6 +604,7 @@
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Min18YearsIfAMember.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\Rental.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ListOfCustomersViewModel.cs" />
@@ -948,6 +958,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808211826185_SeedUsers.resx">
       <DependentUpon>201808211826185_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809021654431_PhoneNumberToApplicationUser.resx">
+      <DependentUpon>201809021654431_PhoneNumberToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809121755389_RentalsAdded.resx">
+      <DependentUpon>201809121755389_RentalsAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

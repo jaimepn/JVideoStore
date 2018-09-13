@@ -73,6 +73,7 @@ namespace JVideoStore.Controllers.Api
         }
 
         //POST
+        [Authorize(Roles = "canManageMovies")]
         [HttpPost]
         public IHttpActionResult CreateMovie(MovieDto movieDto)
         {
@@ -97,7 +98,7 @@ namespace JVideoStore.Controllers.Api
             return Created(new Uri(Request.RequestUri + "/" + movieDto.Id), movieDto);
         }
 
-
+        [Authorize(Roles = "canManageMovies")]
         [HttpPut]
         public IHttpActionResult UpdateMovie(int id, MovieDto movieDto)
         {
@@ -122,7 +123,7 @@ namespace JVideoStore.Controllers.Api
             return Ok();
         }
 
-
+        [Authorize(Roles = "canManageMovies")]
         [HttpDelete]
         public IHttpActionResult DeleteMovie(int id)
         {

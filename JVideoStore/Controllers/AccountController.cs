@@ -154,7 +154,11 @@ namespace JVideoStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Models.ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new Models.ApplicationUser {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -385,7 +389,11 @@ namespace JVideoStore.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new Models.ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new Models.ApplicationUser {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber
+                };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
