@@ -87,6 +87,7 @@ namespace JVideoStore.Controllers.Api
                 GenreId = movieDto.GenreId,
                 Name = movieDto.Name,
                 NumberInStock = movieDto.NumberInStock,
+                NumberAvailable = movieDto.NumberInStock,
                 ReleaseDate = movieDto.ReleaseDate
             };
 
@@ -117,6 +118,7 @@ namespace JVideoStore.Controllers.Api
             movieDB.DateAdded = movieDto.DateAdded;
             movieDB.NumberInStock = movieDto.NumberInStock;
             movieDB.ReleaseDate = movieDto.ReleaseDate;
+            //IF
 
             _context.SaveChanges();
 

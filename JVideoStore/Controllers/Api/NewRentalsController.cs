@@ -44,14 +44,22 @@ namespace JVideoStore.Controllers.Api
         public IHttpActionResult CreateNewRentals(NewRentalDto newRental)
         {
 
-            var customer = _context.Customers.Single(c => c.Id == newRental.CustomerId);
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == newRental.CustomerId);
+            if (customer == null)
+                return BadRequest("Customer not valid!");
 
-            var movies = _context.Movies.Where(m => newRental.MovieIds.Contains(m.Id));
+            var movies = _context.Movies.Where(m => newRental.MovieIds.Contains(m.Id)).ToList();
+            if (movies.Count != newRental.MovieIds.Count)
+                return BadRequest("One or more movies are invalid!");
+
 
             foreach (var movie in movies)
             {
-                //var movie = _context.Movies.FirstOrDefault(m => m.Id == movieId);
 
+                if (movie.NumberAvailable == 0)
+                    return BadRequest("No stock for a given movie!");
+
+                movie.NumberAvailable--;
                 var rental = new Rental
                 {
                     Customer = customer,

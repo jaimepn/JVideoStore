@@ -593,6 +593,10 @@
     <Compile Include="Migrations\201809121755389_RentalsAdded.Designer.cs">
       <DependentUpon>201809121755389_RentalsAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809141723393_MoviesNumberAvailable.cs" />
+    <Compile Include="Migrations\201809141723393_MoviesNumberAvailable.Designer.cs">
+      <DependentUpon>201809141723393_MoviesNumberAvailable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ApplicationUser.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\MyContext.cs" />
@@ -964,6 +968,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809121755389_RentalsAdded.resx">
       <DependentUpon>201809121755389_RentalsAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809141723393_MoviesNumberAvailable.resx">
+      <DependentUpon>201809141723393_MoviesNumberAvailable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
