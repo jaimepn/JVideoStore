@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New Rental Form</h2>
+
+<form>
+    <div class="form-group">
+        <label>Customer</label>
+        <input id="customer" type="search" autocomplete="off" value="" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Movie</label>
+        <input id="movie" type="search" autocomplete="off" value="" class="form-control" />
+    </div>
+    <button class="btn btn-primary">Submit</button>
+</form>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            var vm = {};
+
+            var customers = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                //prefetch: '../data/films/post_1960.json',
+                remote: {
+                    url: '/api/customers?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            var movies = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                //prefetch: '../data/films/post_1960.json',
+                remote: {
+                    url: '/api/movies?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#customer').typeahead(
+                {
+                    minLength: 3,
+                    highlight: true
+                }
+                , {
+                    name: 'customers',
+                    display: 'name',
+                    source: customers
+                }).on("typeahead:select", function (e, customer) {
+                    vm.customerid = customer.id;
+                });
+
+            $('#movie').typeahead(
+                {
+                    minLength: 3,
+                    highlight: true
+                }
+                , {
+                    name: 'movies',
+                    display: 'name',
+                    source: movies
+                }).on("typeahead:select", function (e, movie) {
+                    vm.movieid = movie.id;
+                });
+
+            //$('input').attr('autocomplete', 'false');
+        })
+    </script>
+    
+
+}
+
