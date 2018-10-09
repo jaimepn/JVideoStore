@@ -6,15 +6,29 @@
 <h2>New Rental Form</h2>
 
 <form>
+
     <div class="form-group">
         <label>Customer</label>
-        <input id="customer" type="search" autocomplete="off" value="" class="form-control" />
+        <div class="tt-container">
+            <input id="customer" type="search" autocomplete="off" value="" class="form-control" />
+        </div>        
     </div>
+
     <div class="form-group">
         <label>Movie</label>
-        <input id="movie" type="search" autocomplete="off" value="" class="form-control" />
+        <div class="tt-container">
+            <input id="movie" type="search" autocomplete="off" value="" class="form-control" />
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <ul id="movies" class="list-group"></ul>
+        </div>
+    </div>        
+
     <button class="btn btn-primary">Submit</button>
+
 </form>
 
 @section scripts
@@ -22,7 +36,9 @@
     <script>
         $(document).ready(function () {
 
-            var vm = {};
+            var vm = {
+                movieIds: []
+            };
 
             var customers = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -67,7 +83,16 @@
                     display: 'name',
                     source: movies
                 }).on("typeahead:select", function (e, movie) {
-                    vm.movieid = movie.id;
+                    //adds movies to html list
+                    $("#movies").append("<li class='list-group-item'>" + movie.name + "</li>");
+
+                    //clears the textbox
+                    $("#movie").typeahead("val", "");
+
+                    //add id to view model
+                    vm.movieIds.push(movie.id);
+
+
                 });
 
             //$('input').attr('autocomplete', 'false');
