@@ -22,9 +22,16 @@ namespace JVideoStore.Controllers.Api
         }
 
         //GET
-        public IHttpActionResult GetMovies()
+        public IHttpActionResult GetMovies(string query = null)
         {
-            var movies = _context.Movies.Include(g => g.Genre).ToList();
+            var moviesQuery = _context.Movies.Include(g => g.Genre);
+
+            if (!String.IsNullOrWhiteSpace(query))
+                moviesQuery = moviesQuery.Where(m => m.Name.ToLower().Contains(query.ToLower()));
+
+            moviesQuery = moviesQuery.Where(m => m.NumberAvailable > 0);
+
+            var movies = moviesQuery.ToList();
             var moviesDto = new List<MovieDto>();
 
             foreach (Movie movie in movies)

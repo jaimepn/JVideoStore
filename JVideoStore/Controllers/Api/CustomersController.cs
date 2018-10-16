@@ -23,13 +23,19 @@ namespace JVideoStore.Controllers.Api
         }
 
         //GET Api/Customers
-        public IHttpActionResult GetCustomers()
+        public IHttpActionResult GetCustomers(string query = null)
         {
-            var customerDtos = _context.Customers
-                //.Include(c => c.MembershipType)
+
+            var customersQuery = _context.Customers.ToList();
+
+            if (!String.IsNullOrWhiteSpace(query))
+                customersQuery = customersQuery.Where(c => c.Name.ToLower().Contains(query.ToLower())).ToList();
+
+            var customerDtos = customersQuery
                 .ToList()
                 .Select(Mapper.Map<Customer, CustomerDto>);
 
+            //add the membershiptype
             foreach (CustomerDto cdto in customerDtos)
             {
                 var mtype = _context.MembershipTypes.SingleOrDefault(m => m.Id == cdto.MembershipTypeId);
