@@ -55,8 +55,8 @@ namespace JVideoStore
             //   consumerSecret: "");
 
             app.UseFacebookAuthentication(
-               appId: "1801515293280830",
-               appSecret: "cf5bcd6ebcc2824ed33e290bfe55cfac");
+               appId: "aaa",
+               appSecret: "bbb");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

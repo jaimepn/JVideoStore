@@ -5,19 +5,19 @@
 
 <h2>New Rental Form</h2>
 
-<form id="newRental">
+<form id="newRental" name="newRental">
 
     <div class="form-group">
         <label>Customer</label>
         <div class="tt-container">
-            <input id="customer" type="search" autocomplete="off" value="" class="form-control" />
+            <input id="customer" name="customer" data-rule-validCustomer="true" required type="text" autocomplete="off" value="" class="form-control" />
         </div>        
     </div>
 
     <div class="form-group">
         <label>Movie</label>
         <div class="tt-container">
-            <input id="movie" type="search" autocomplete="off" value="" class="form-control" />
+            <input id="movie" name="movie" data-rule-rentalHasMovies="true" type="text" autocomplete="off" value="" class="form-control" />
         </div>
     </div>
 
@@ -33,6 +33,7 @@
 
 @section scripts
 {
+    @Scripts.Render("~/bundles/jqueryval");
     <script>
         $(document).ready(function () {
 
@@ -50,16 +51,6 @@
                 }
             });
 
-            var movies = new Bloodhound({
-                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-                queryTokenizer: Bloodhound.tokenizers.whitespace,
-                //prefetch: '../data/films/post_1960.json',
-                remote: {
-                    url: '/api/movies?query=%QUERY',
-                    wildcard: '%QUERY'
-                }
-            });
-
             $('#customer').typeahead(
                 {
                     minLength: 3,
@@ -70,8 +61,18 @@
                     display: 'name',
                     source: customers
                 }).on("typeahead:select", function (e, customer) {
-                    vm.customerid = customer.id;
+                    vm.customerId = customer.id;
                 });
+
+            var movies = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                //prefetch: '../data/films/post_1960.json',
+                remote: {
+                    url: '/api/movies?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
 
             $('#movie').typeahead(
                 {
@@ -95,24 +96,41 @@
 
                 });
 
-            $("#newRental").submit(function (e) {
-                e.preventDefault();
+            $.validator.addMethod("validCustomer", function () {
+                return vm.customerId && vm.customerId !== 0;
+            }, "Please select a customer from the list.");
 
-                $.ajax({
-                    url: "/api/newRentals",
-                    method: "post",
-                    data: vm
-                })
-                .done(function () {
-                    //console.log("done");
-                    toastr.success("Rental created successfully!")
-                })
-                .fail(function () {
-                    toastr.error("Error: Unable to create rental!")
-                })
+            $.validator.addMethod("rentalHasMovies", function () {
+                return vm.movieIds.length > 0;
+            }, "Please select at least one movie.");
+
+            var validator = $("#newRental").validate({
+                submitHandler: function() {
+
+                    $.ajax({
+                        url: "/Api/NewRentals",
+                        method: "post",
+                        data: vm
+                    })
+                    .done(function () {
+                        toastr.success("Rental created successfully!");
+
+                        $("#customer").typeahead("val", "");
+                        $("#movie").typeahead("val", "");
+                        $("#movies").empty();
+                        vm = { movieIds: [] };
+                        validator.resetForm();
+                    })
+                    .fail(function () {
+                        toastr.error("Error: Unable to create rental!");
+                        });
+
+                    //same as e.preventDefault in submit
+                    return false;
+
+                }
             });
-            //$('input').attr('autocomplete', 'false');
-        })
+        });
     </script>
     
 

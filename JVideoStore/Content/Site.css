@@ -16,11 +16,14 @@
     white-space: normal;
 }
 
-.field-validation-error {
+.field-validation-error,
+.label.error {
     color: red;
 }
 
-.input-validation-error {
+.input-validation-error,
+.input.error,
+.tt-input.error {
     border: 2px solid red;
 }
 
@@ -31,5 +34,6 @@ select,
 textarea {
     max-width: 280px;
 }
+
 
 
